@@ -19,15 +19,15 @@ jobs:
       fail-fast: false
       matrix:
         kernel_config:
-          - kernel_name: "SM6125"
-            kernel_url: "https://github.com/LineageOS/android_kernel_xiaomi_sm6125"
-            kernel_branch: "lineage-23.0"
-            anykernel_branch: "sm6125"
-            tag: "SM6125-23.0"
-            defconfig: "vendor/trinket-perf_defconfig"
-            config: "vendor/xiaomi-trinket.config vendor/laurel_sprout.config"
-            patches_folder: "sm6125"
-            IN_DTBO: "out/arch/arm64/boot/dts/xiaomi/laurel_sprout-trinket-overlay.dtbo"
+          # - kernel_name: "SM6125"
+          #   kernel_url: "https://github.com/LineageOS/android_kernel_xiaomi_sm6125"
+          #   kernel_branch: "lineage-23.0"
+          #   anykernel_branch: "sm6125"
+          #   tag: "SM6125-23.0"
+          #   defconfig: "vendor/trinket-perf_defconfig"
+          #   config: "vendor/xiaomi-trinket.config vendor/laurel_sprout.config"
+          #   patches_folder: "sm6125"
+          #   IN_DTBO: "out/arch/arm64/boot/dts/xiaomi/laurel_sprout-trinket-overlay.dtbo"
 
           - kernel_name: "SM6125 - Ginkgo"
             device: Ginkgo
@@ -40,44 +40,44 @@ jobs:
             patches_folder: "sm6125"
             IN_DTBO: "out/arch/arm64/boot/dts/xiaomi/ginkgo-trinket-overlay.dtbo"
 
-          - kernel_name: "N18.1"
-            kernel_url: "https://github.com/TheSillyOk/kernel_laurel_sprout"
-            kernel_branch: "lineage-18.1"
-            tag: "NoName-18.1"
-            python3_patch: true
+          # - kernel_name: "N18.1"
+          #   kernel_url: "https://github.com/TheSillyOk/kernel_laurel_sprout"
+          #   kernel_branch: "lineage-18.1"
+          #   tag: "NoName-18.1"
+          #   python3_patch: true
 
-          - kernel_name: "N-VIC"
-            kernel_url: "https://github.com/TheSillyOk/kernel_laurel_sprout"
-            kernel_branch: "vic"
-            tag: "NoName-VIC"
-            python3_patch: true
+          # - kernel_name: "N-VIC"
+          #   kernel_url: "https://github.com/TheSillyOk/kernel_laurel_sprout"
+          #   kernel_branch: "vic"
+          #   tag: "NoName-VIC"
+          #   python3_patch: true
 
         build:
-          - type: Normal
-            ksu: false
-            ak3_suffix: ""
+#           - type: Normal
+#             ksu: false
+#             ak3_suffix: ""
 
-          - type: KSUN
-            ksu: true
-            repo: "KernelSU-Next/KernelSU-Next"
-            branch: "next"
-            susfs_repo: "pershoot/KernelSU-Next"
-            susfs_branch: "next-susfs"
-            ksu_patches: "KSUN/WildJames-Manager.patch"
-            kernel_patches: "manual_hooks.patch seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
-            extra_configs: "CONFIG_KSU_KPROBES_HOOK=n"
-#            susfs_patch: "KSUN/KSUN-SUSFS-1.5.12.patch"
-            ak3_suffix: "-KSUNext"
+#           - type: KSUN
+#             ksu: true
+#             repo: "KernelSU-Next/KernelSU-Next"
+#             branch: "next"
+#             susfs_repo: "pershoot/KernelSU-Next"
+#             susfs_branch: "next-susfs"
+#             ksu_patches: "KSUN/WildJames-Manager.patch"
+#             kernel_patches: "manual_hooks.patch seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
+#             extra_configs: "CONFIG_KSU_KPROBES_HOOK=n"
+# #            susfs_patch: "KSUN/KSUN-SUSFS-1.5.12.patch"
+#             ak3_suffix: "-KSUNext"
 
-          - type: RKSU
-            ksu: true
-            repo: "rsuntk/KernelSU"
-            branch: "main"
-            susfs_branch: "susfs-main"
-            kernel_patches: "get_cred_rcu.patch strncpy_from_user_nofault.patch manual_hooks.patch reboot-hook.patch"
-            extra_configs: "CONFIG_KSU_MANUAL_HOOK=y"
-#            susfs_patch: "RKSU/RKSU-SUSFS-1.5.12.patch"
-            ak3_suffix: "-RKSU"
+#           - type: RKSU
+#             ksu: true
+#             repo: "rsuntk/KernelSU"
+#             branch: "main"
+#             susfs_branch: "susfs-main"
+#             kernel_patches: "get_cred_rcu.patch strncpy_from_user_nofault.patch manual_hooks.patch reboot-hook.patch"
+#             extra_configs: "CONFIG_KSU_MANUAL_HOOK=y"
+# #            susfs_patch: "RKSU/RKSU-SUSFS-1.5.12.patch"
+#             ak3_suffix: "-RKSU"
 
           - type: SukiSU
             ksu: true
