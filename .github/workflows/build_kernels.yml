@@ -42,6 +42,7 @@ jobs:
             susfs_kernel_patches: "susfs-2.0.0.patch"
             extra_configs: "CONFIG_KSU_KPROBES_HOOK=n CONFIG_KSU_DEBUG=y"
             susfsless_configs: "CONFIG_KSU_SUSFS=n"
+            susfs_configs: "CONFIG_KSU_SUSFS=y"
             ak3_suffix: "-KSUNext"
         susfs: [false, true]
         exclude:
@@ -182,8 +183,9 @@ jobs:
 
           if [[ -n "${{ matrix.build.susfsless_configs }}" && "${{ matrix.susfs }}" != "true" ]]; then
             for config in ${{ matrix.build.susfsless_configs }}; do
-              echo "--> Added ${config} <--"
               config_name=$(echo "${config}" | cut -d "=" -f 1)
+              config_val=$(echo "${config}" | cut -d "=" -f 2)
+              echo "--> Set ${config_name} (${config_val})"
               sed -i -E 's/.*($config_name=.*)/# \1/gi' ${{ env.kernel_folder }}/arch/arm64/configs/${{ matrix.kernel_config.defconfig }}
               echo -e "\n${config}" >> "${{ env.kernel_folder }}/arch/arm64/configs/${{ matrix.kernel_config.defconfig }}"
             done
@@ -241,6 +243,7 @@ jobs:
           mkdir -p "out/arch/arm64/boot/dts/xiaomi/.ginkgo-trinket-overlay.dtbo.qcom-base"
 
           make O=out ARCH=arm64 ${{ matrix.kernel_config.defconfig }} ${{ env.config }}
+          cat "${{ env.kernel_folder }}/.config" || true
           make O=out DTC_PREBUILT=true DTC=$EXTRA_FOLDER/dtc DTC_OVERLAY_TEST_EXT=$EXTRA_FOLDER/ufdt_apply_overlay MKDTIMG=$EXTRA_FOLDER/mkdtimg CC="ccache clang" LD=ld.lld LLVM=1 LLVM_IAS=1 -j"$(nproc --all)" CROSS_COMPILE=aarch64-linux-gnu-
 
       - name: Create AnyKernel3 Zip
