@@ -192,7 +192,7 @@ jobs:
           else
             cd "${{ env.workspace_folder }}"
             git clone --depth=1 -b "${{ matrix.build.branch }}" "https://github.com/${{ matrix.build.repo }}" ${{ matrix.build.folder }}
-            cd ksu/kernel
+            cd ${{ matrix.build.folder }}/kernel
             chmod +x setup.sh
             ./setup.sh "${{ matrix.build.branch }}"
           fi
