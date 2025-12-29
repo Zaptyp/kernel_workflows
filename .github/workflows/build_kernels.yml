@@ -194,6 +194,9 @@ jobs:
             git clone --depth=1 -b "${{ matrix.build.branch }}" "https://github.com/${{ matrix.build.repo }}" ${{ matrix.build.folder }}
             #cd ${{ matrix.build.folder }}/kernel
             chmod +x ./${{ matrix.build.folder }}/kernel/setup.sh
+            ls -la
+            cd "${{ env.workspace_folder }}"
+            ls -la
             ./${{ matrix.build.folder }}/kernel/setup.sh "${{ matrix.build.branch }}"
           fi
           #curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
