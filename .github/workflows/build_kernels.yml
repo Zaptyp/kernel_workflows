@@ -68,12 +68,12 @@ jobs:
             #ksu_patches: "KSUN/WildJames-Manager.patch KSUN/KSUN-SUSFS-2.0.0.patch"
 #            susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
             #kernel_patches: "seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
-            #susfsless_kernel_patches: "scope-min-hooks-v1.6.patch"
+            susfsless_kernel_patches: "scope-min-hooks-v1.6.patch"
             susfs_kernel_patches: "susfs-2.0.0.patch"
-            extra_configs: "CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y CONFIG_KSU_KPROBE_HOOKS=y"
+            extra_configs: "CONFIG_KSU_KPROBES_HOOK=n CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y CONFIG_KSU_KPROBE_HOOKS=n CONFIG_KSU_MANUAL_HOOK=y"
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
             #susfs_configs: "CONFIG_KSU_SUSFS=y"
-            ak3_suffix: "-Max-KSUNext-KProbes"
+            ak3_suffix: "-Max-KSUNext"
         susfs: [false, true]
         exclude:
           - build:
