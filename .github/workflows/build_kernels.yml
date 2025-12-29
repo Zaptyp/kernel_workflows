@@ -187,16 +187,16 @@ jobs:
         working-directory: ${{ env.kernel_folder }}
         run: |
           set -e
-          if [ "${{ env.repo }}" = "KernelSU-Next/KernelSU-Next" ]; then
-            curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
+          if [ "${{ matrix.build.repo }}" = "KernelSU-Next/KernelSU-Next" ]; then
+            curl -LSs "https://raw.githubusercontent.com/${{ matrix.build.repo }}/${{ matrix.build.branch }}/kernel/setup.sh" | bash -s ${{ matrix.build.branch }}
           else
             cd "${{ env.workspace_folder }}"
-            git clone --depth=1 -b "${{ env.branch }}" "https://github.com/${{ env.ksu_repo }}" ${{env.folder}}
+            git clone --depth=1 -b "${{ env.branch }}" "https://github.com/${{ matrix.build.repo }}" ${{ matrix.build.folder }}
             cd ksu/kernel
             chmod +x setup.sh
-            ./setup.sh "${{ env.ksu_branch }}"
+            ./setup.sh "${{ matrix.build.branch }}"
           fi
-          curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
+          #curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
 
           if [[ -n "${{ matrix.build.susfsless_kernel_patches }}" && "${{ matrix.susfs }}" != "true" ]]; then
             for patch_name in ${{ matrix.build.susfsless_kernel_patches }}; do
