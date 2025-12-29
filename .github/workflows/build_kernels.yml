@@ -60,6 +60,20 @@ jobs:
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
             #susfs_configs: "CONFIG_KSU_SUSFS=y"
             ak3_suffix: "-KSUNext-KProbes"
+          - type: KSUN
+            ksu: true
+            repo: "maxsteeel/KernelSU-Next"
+            folder: "KernelSU-Next"
+            branch: "susfs-legacy-test"
+            #ksu_patches: "KSUN/WildJames-Manager.patch KSUN/KSUN-SUSFS-2.0.0.patch"
+#            susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
+            #kernel_patches: "seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
+            #susfsless_kernel_patches: "scope-min-hooks-v1.6.patch"
+            susfs_kernel_patches: "susfs-2.0.0.patch"
+            extra_configs: "CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y CONFIG_KSU_KPROBE_HOOKS=y"
+            #susfsless_configs: "CONFIG_KSU_SUSFS=n"
+            #susfs_configs: "CONFIG_KSU_SUSFS=y"
+            ak3_suffix: "-Max-KSUNext-KProbes"
         susfs: [false, true]
         exclude:
           - build:
@@ -173,6 +187,15 @@ jobs:
         working-directory: ${{ env.kernel_folder }}
         run: |
           set -e
+          if [ "${{ env.repo }}" = "KernelSU-Next/KernelSU-Next" ]; then
+            curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
+          else
+            cd "${{ env.workspace_folder }}"
+            git clone --depth=1 -b "${{ env.branch }}" "https://github.com/${{ env.ksu_repo }}" ${{env.folder}}
+            cd ksu/kernel
+            chmod +x setup.sh
+            ./setup.sh "${{ env.ksu_branch }}"
+          fi
           curl -LSs "https://raw.githubusercontent.com/${{ env.ksu_repo }}/${{ env.ksu_branch }}/kernel/setup.sh" | bash -s ${{ env.ksu_branch }}
 
           if [[ -n "${{ matrix.build.susfsless_kernel_patches }}" && "${{ matrix.susfs }}" != "true" ]]; then
