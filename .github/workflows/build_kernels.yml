@@ -87,7 +87,7 @@ jobs:
             extra_configs: "CONFIG_KSU_KPROBES_HOOK=n CONFIG_KSU_MANUAL_HOOK=y CONFIG_KSU_SUSFS_TRY_UMOUNT=n CONFIG_KSU_SUSFS_SUS_MAP=n CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y CONFIG_KSU_KPROBE_HOOKS=y"
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
             #susfs_configs: "CONFIG_KSU_SUSFS=y"
-            ak3_suffix: "-Max-KSUNext"
+            ak3_suffix: "-Max-KSUNext-KPROBES"
         susfs: [false, true]
         exclude:
           - build:
