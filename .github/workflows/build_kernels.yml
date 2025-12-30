@@ -88,6 +88,20 @@ jobs:
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
             #susfs_configs: "CONFIG_KSU_SUSFS=y"
             ak3_suffix: "-Max-KSUNext-KPROBES"
+          - type: KSUN-Max-KPROBES-Dupa
+            ksu: true
+            repo: "maxsteeel/KernelSU-Next"
+            folder: "KernelSU-Next"
+            branch: "susfs-legacy-test"
+            #ksu_patches: "KSUN/WildJames-Manager.patch KSUN/KSUN-SUSFS-2.0.0.patch"
+#            susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
+            #kernel_patches: "seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
+            #susfsless_kernel_patches: "scope-min-hooks-v1.6.patch"
+            susfs_kernel_patches: "Dupa.patch"
+            extra_configs: "CONFIG_KSU_KPROBES_HOOK=n CONFIG_KSU_MANUAL_HOOK=y CONFIG_KSU_SUSFS_TRY_UMOUNT=n CONFIG_KSU_SUSFS_SUS_MAP=n CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y CONFIG_KSU_KPROBE_HOOKS=y"
+            #susfsless_configs: "CONFIG_KSU_SUSFS=n"
+            #susfs_configs: "CONFIG_KSU_SUSFS=y"
+            ak3_suffix: "-Max-KSUNext-KPROBES-Dupa"
         susfs: [false, true]
         exclude:
           - build:
@@ -105,7 +119,7 @@ jobs:
         id: vars
         run: |
           echo "config=${{ matrix.kernel_config.config }}" >> $GITHUB_ENV
-          echo "patches_url=${{ matrix.kernel_config.patches_url || 'https://github.com/TheSillyOk/kernel_ls_patches' }}" >> $GITHUB_ENV
+          echo "patches_url=${{ matrix.kernel_config.patches_url || 'https://github.com/Zaptyp/kernel_ls_patches' }}" >> $GITHUB_ENV
           echo "patches_branch_arg=${{ matrix.kernel_config.patches_branch && format('-b {0}', matrix.kernel_config.patches_branch) || '' }}" >> $GITHUB_ENV
           echo "patches_folder=${{ matrix.kernel_config.patches_folder || 'noname' }}" >> $GITHUB_ENV
           echo "anykernel_url=${{ matrix.kernel_config.anykernel_url || 'https://github.com/TheSillyOk/anykernel' }}" >> $GITHUB_ENV
