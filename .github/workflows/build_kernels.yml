@@ -38,24 +38,24 @@ jobs:
             #ksu_patches: "KSUN/WildJames-Manager.patch"
             susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
 #            susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
-            kernel_patches: "seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch scope-min-hooks-v1.6.patch"
+            kernel_patches: "seccomp.patch scope-min-hooks-v1.6.patch"
             susfs_kernel_patches: "susfs-2.0.0.patch"
             extra_configs: "CONFIG_KSU_KPROBES_HOOK=n"
             ak3_suffix: "-KSUNext"
           - type: KSUN-KPROBES
             ksu: true
-            exclude: susfs
+            #exclude: susfs
             repo: "KernelSU-Next/KernelSU-Next"
             folder: "KernelSU-Next"
             branch: "legacy"
             #ksu_patches: "KSUN/WildJames-Manager.patch KSUN/KSUN-SUSFS-2.0.0.patch"
 #            susfs_ksu_patches: "KSUN/KSUN-SUSFS-2.0.0.patch"
-            #kernel_patches: "seccomp.patch get_cred_rcu.patch strncpy_from_user_nofault.patch"
+            kernel_patches: "seccomp.patch"
             #susfsless_kernel_patches: "scope-min-hooks-v1.6.patch"
-            #susfs_kernel_patches: "susfs-2.0.0.patch"
+            susfs_kernel_patches: "susfs-2.0.0.patch"
             extra_configs: "CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y"
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
-            #susfs_configs: "CONFIG_KSU_SUSFS=y"
+            susfs_configs: "CONFIG_KSU_SUSFS=y"
             ak3_suffix: "-KSUNext-KProbes"
         susfs: [false, true]
         exclude:
@@ -140,7 +140,7 @@ jobs:
 
           cd "${{ env.workspace_folder }}/kernel_tree"
 
-          kernel_patches="fix_lto.patch ptrace_fix.patch"
+          kernel_patches="fix_lto.patch ptrace_fix.patch kpatch_fix.patch"
           if [[ -n "${{ matrix.build.kernel_patches }}" ]]; then
             kernel_patches="$kernel_patches ${{ matrix.build.kernel_patches }}"
           fi
