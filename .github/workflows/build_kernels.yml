@@ -55,7 +55,7 @@ jobs:
             susfs_kernel_patches: "susfs-2.0.0.patch"
             extra_configs: "CONFIG_KSU_KPROBES_HOOK=y CONFIG_KPROBES=y CONFIG_KPROBE_EVENTS=y"
             #susfsless_configs: "CONFIG_KSU_SUSFS=n"
-            susfs_configs: "CONFIG_KSU_SUSFS=y"
+            #susfs_configs: "CONFIG_KSU_SUSFS=y"
             ak3_suffix: "-KSUNext-KProbes"
         susfs: [false, true]
         exclude:
